@@ -133,6 +133,15 @@ class PeopleDB {
 
         return false;
      }
+
+
+         public function getName()
+        {        
+        $result = $this->mysqli->query('SELECT name FROM people');          
+        $names = $result->fetch_all(MYSQLI_ASSOC);          
+        $result->close();
+        return $names; 
+        }
     
 }
 ?>
