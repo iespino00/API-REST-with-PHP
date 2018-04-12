@@ -72,24 +72,30 @@ class PeopleAPI
      /**
       * metodo para guardar un nuevo registro de persona en la base de datos
       */
-     function savePeople(){
-         if($_GET['action']=='peoples'){   
-             //Decodifica un string de JSON
-             $obj = json_decode( file_get_contents('php://input') );   
-             $objArr = (array)$obj;
-             if (empty($objArr)){
-                 $this->response(422,"error","Nothing to add. Check json");                           
-             }else if(isset($obj->name)){
-                 $people = new PeopleDB();     
-                 $people->insert( $obj->name );
-                 $this->response(200,"success","new record added");                             
-             }else{
-                 $this->response(422,"error","The property is not defined");
-             }
-         } else{               
-             $this->response(400);
-         }  
-     }
+     function savePeople()
+       {
+             if($_GET['action']=='peoples')
+             {   
+                 //Decodifica un string de JSON
+                 $obj = json_decode( file_get_contents('php://input') );   
+                 $objArr = (array)$obj;
+                 if (empty($objArr))
+                 {
+                    $this->response(422,"error","Nothing to add. Check json");                           
+                 }
+                 else if(isset($obj->name))
+                     {
+                         $people = new PeopleDB();     
+                         $people->insert( $obj->name );
+                         $this->response(200,"success","new record added");                             
+                     }
+                     else{
+                         $this->response(422,"error","The property is not defined");
+                          }
+             } else{               
+                 $this->response(400);
+             }  
+       }
 
 
 
