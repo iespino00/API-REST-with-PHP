@@ -1,5 +1,6 @@
 <?php
 require_once('PeopleDB.php');
+require_once('DB.php');   //Consultas con PDO
 class PeopleAPI 
 {    
      public function API()
@@ -52,14 +53,17 @@ class PeopleAPI
          if($_GET['action']=='peoples')
             {         
                  $db = new PeopleDB();
+                 $dbPDO = new DB();   //Objeto de clase DB
                  if(isset($_GET['id']))
                  {
                      //muestra 1 solo registro si es que existiera ID                 
-                     $response = $db->getPeople($_GET['id']);                
+                  //   $response = $db->getPeople($_GET['id']);   //Consultas con mysqli  
+                  $response = $dbPDO->getUsuario($_GET['id']);   //Consultas con PDO         
                      echo json_encode($response,JSON_PRETTY_PRINT);
                  }else
                      { //muestra todos los registros                   
-                     $response = $db->getPeoples();              
+                     $response = $db->getPeoples();   //consultas con mysqli
+                     $response = $dbPDO->getAllUsuarios();   //Consultas con PDO          
                      echo json_encode($response,JSON_PRETTY_PRINT);
                      }
              }else{
